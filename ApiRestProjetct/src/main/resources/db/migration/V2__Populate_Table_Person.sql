@@ -1,0 +1,26 @@
+INSERT INTO `rest-api-database`.`person`
+(`id`,
+`cpf`,
+`address`,
+`first_name`,
+`gender`,
+`last_name`)
+VALUES
+(1,
+'12345678900',
+'123 Main Street',
+'John',
+'Male',
+'Doe'),
+(2,
+'98765432100',
+'456 Elm Street',
+'Jane',
+'Female',
+'Smith'),
+(3,
+'55555555500',
+'789 Oak Street',
+'Michael',
+'Male',
+'Johnson');

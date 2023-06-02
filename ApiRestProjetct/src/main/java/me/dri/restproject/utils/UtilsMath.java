@@ -1,6 +1,6 @@
 package me.dri.restproject.utils;
 
-import me.dri.restproject.exception.UnsupportedMathOperationException;
+import me.dri.restproject.exception.attributeAlreadyExists;
 
 public class UtilsMath {
 
@@ -21,14 +21,14 @@ public class UtilsMath {
 
     public static void isNumeriValidantion(String number, String numberTwo) {
         if (!UtilsMath.isNumeric(number) || !UtilsMath.isNumeric(numberTwo)) {
-            throw new UnsupportedMathOperationException("Please a set a numeric value");
+            throw new attributeAlreadyExists("Please a set a numeric value");
         }
 
     }
 
     public static void isNumeriValidantion(String number) {
         if (!UtilsMath.isNumeric(number)) {
-            throw new UnsupportedMathOperationException("Please a set a numeric value");
+            throw new attributeAlreadyExists("Please a set a numeric value");
 
         }
     }

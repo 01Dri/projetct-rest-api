@@ -9,16 +9,21 @@ public class ExceptionResponse  implements Serializable {
     private String message;
     private String details;
 
+    private int errostatus;
+
 
     public ExceptionResponse() {
 
     }
 
-    public ExceptionResponse(Date timestamp, String message, String details) {
+    public ExceptionResponse(Date timestamp, String message, String details, int errostatus) {
         this.timestamp = timestamp;
         this.message = message;
         this.details = details;
+        this.errostatus = errostatus;
     }
+
+
 
     public Date getTimestamp() {
         return timestamp;
@@ -42,5 +47,13 @@ public class ExceptionResponse  implements Serializable {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public int getErrostatus() {
+        return errostatus;
+    }
+
+    public void setErrostatus(int errostatus) {
+        this.errostatus = errostatus;
     }
 }

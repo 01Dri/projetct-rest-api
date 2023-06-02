@@ -8,6 +8,7 @@ public class ApiRestProjetctApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ApiRestProjetctApplication.class, args);
+
 	}
 
 }
