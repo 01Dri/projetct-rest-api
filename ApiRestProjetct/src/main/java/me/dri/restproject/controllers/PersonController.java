@@ -31,10 +31,11 @@ public class PersonController {
         return ResponseEntity.ok().body(person);
     }
 
-    @PostMapping
+    @PostMapping (produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+            consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public ResponseEntity<PersonVO> create(@RequestBody PersonVO person) {
         person = services.create(person);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(person.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(person.getKey()).toUri();
         return ResponseEntity.created(uri).body(person);
 
     }
@@ -54,8 +55,8 @@ public class PersonController {
     }
 
     @GetMapping (produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
-    public ResponseEntity<List<Person>> findAll(){
-        List<Person> persons = services.findAll();
+    public ResponseEntity<List<PersonVO>> findAll(){
+        List<PersonVO> persons = services.findAll();
         return ResponseEntity.ok().body(persons);
     }
 

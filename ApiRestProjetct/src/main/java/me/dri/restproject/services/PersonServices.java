@@ -1,6 +1,7 @@
 package me.dri.restproject.services;
 
 
+import me.dri.restproject.controllers.PersonController;
 import me.dri.restproject.data.vo.v1.PersonVO;
 import me.dri.restproject.data.vo.v2.PersonVOV2;
 import me.dri.restproject.exception.ResourceNotFoundDb;
@@ -11,6 +12,9 @@ import me.dri.restproject.model.Person;
 import me.dri.restproject.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +33,9 @@ public class PersonServices {
     public PersonVO findById(Long id) {
         logger.info("Searching person by Id");
         var entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundDb("Resouce not found"));
-        return DozerMapper.parseObj(entity, PersonVO.class);
+        PersonVO vo =  DozerMapper.parseObj(entity, PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
+        return vo;
     }
 
     public PersonVO create(PersonVO personVO) {
@@ -64,8 +70,10 @@ public class PersonServices {
 
     }
 
-    public List<Person> findAll() {
-        return personRepository.findAll();
+    public List<PersonVO> findAll() {
+        var persons = DozerMapper.parseListObj(personRepository.findAll(), PersonVO.class);
+        persons.forEach(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+        return persons;
     }
 
 
@@ -76,8 +84,7 @@ public class PersonServices {
         entity.setLastName(personVO.getLastName());
         entity.setAddress(personVO.getAddress());
         entity.setGender(personVO.getGender());
-        var vo =  DozerMapper.parseObj(personRepository.save(entity), PersonVO.class);
-        return vo;
+        return  DozerMapper.parseObj(personRepository.save(entity), PersonVO.class);
 
     }
 
