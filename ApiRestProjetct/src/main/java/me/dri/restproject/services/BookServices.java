@@ -14,6 +14,7 @@ import me.dri.restproject.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Book;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -33,8 +34,11 @@ public class BookServices {
         BooksVO booksVO = DozerMapper.parseObj(entity, BooksVO.class);
         booksVO.add(linkTo(methodOn(BookController.class).findById(id)).withSelfRel());
         return  booksVO;
+    }
 
-
+    public BooksVO create(BooksVO booksVO) {
+        var entity = DozerMapper.parseObj(booksVO, Books.class);
+        return DozerMapper.parseObj(booksRepository.save(entity), BooksVO.class);
     }
     public List<BooksVO> findAll() {
         logger.info("Searching books");

@@ -10,10 +10,7 @@ import me.dri.restproject.services.BookServices;
 import me.dri.restproject.utils.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
@@ -47,6 +44,13 @@ public class BookController {
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
     public ResponseEntity<BooksVO> findById(@PathVariable Long id) {
         var entity = services.findById(id);
+        return ResponseEntity.ok().body(entity);
+    }
+
+    @PostMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML},
+            consumes = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YML})
+    public ResponseEntity<BooksVO> create(@RequestBody BooksVO booksVO) {
+        var entity = services.create(booksVO);
         return ResponseEntity.ok().body(entity);
     }
 }

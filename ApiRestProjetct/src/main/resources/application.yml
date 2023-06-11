@@ -7,12 +7,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
-<<<<<<< HEAD
     show-sql: true
 spring-doc:
       pathsToMatch: /person/**
       swagger-ui:
           use-root-path: true
-=======
-    show-sql: true
->>>>>>> bcfade803a03f53f19aadd85c2da2a592b794523
+      show-sql: true
+
