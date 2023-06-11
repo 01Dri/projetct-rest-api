@@ -88,4 +88,10 @@ public class PersonServices {
 
     }
 
-}
+    public void delete(Long id) {
+        Person person = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundDb("Resource not found"));
+        personRepository.delete(person);
+        }
+    }
+
+
